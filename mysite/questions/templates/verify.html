@@ -1,0 +1,11 @@
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'questions/bootstrap.css' %}">
+<h1>
+{% if correct %}
+	Correct! Well done!
+{% else %}
+    Wrong!
+    {% endif %}
+</h1>
+<span> Current score: {{ score }} </span>
+<span><a href='/questions/hello'>Next question!</a></span>

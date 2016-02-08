@@ -1,0 +1,19 @@
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'questions/questions.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'questions/bootstrap.css' %}">
+<div class='row'>
+	<div class ='col-xs-2'></div>
+	<h1 class='col-xs-8'> {{problem}} </h1>
+</div>
+<div class='row'>
+	<div class='col-xs-2'></div>
+	<div class='col-xs-8'>
+	<form action='/questions/verify/' method="post">
+		{% csrf_token %}
+	{{form}}
+	<input type="submit" value="Submit">
+	</form>
+</div>
+</div>
