@@ -22,10 +22,20 @@ class SimpleQuestion(models.Model):
 
 
 class MultiStageQuestion(models.Model):
+	'''
+	content_type = models.ForeignKey(ContentType)
+	object_id = models.PositiveIntegerField()
+	part_one = GenericForeignKey('content_type', 'object_id')
+	'''
+
 	part_one = models.ManyToManyField(SimpleQuestion, default=None, related_name='part_one')
+	InterTextOne = models.TextField()
 	part_two = models.ManyToManyField(SimpleQuestion, default=None, related_name='part_two')
+	InterTextTwo = models.TextField()
 	part_three = models.ManyToManyField(SimpleQuestion, default=None, related_name='part_thre')
+	InterTextThree = models.TextField()	
 	part_four = models.ManyToManyField(SimpleQuestion, default=None, related_name='part_four')
+	InterTextFour = models.TextField()
 	part_five = models.ManyToManyField(SimpleQuestion, default=None, related_name='part_five')
 
 

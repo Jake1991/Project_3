@@ -32,22 +32,13 @@ def get_user(request):
 	return User.objects.get(username=request.user)
 
 def get_score(user):
-	session = UserSession.objects.get_or_create(user_id=user.id)[0]
-	if session.last_updated < datetime.date.today():
-		session.score = 0
-		session.last_updated = datetime.date.today()
-		session.save()
-	return session.score
+	day_score = DayScore.objects.get_or_create(user=user, date=datetime.date.today())[0]
+	return day_score.score
 
 def update_score(user, is_correct):
-	#needs changing
-	session = UserSession.objects.get_or_create(user_id=user.id)[0]
 	if is_correct:
-		session.score += 1
-		session.last_updated = datetime.date.today()
-		session.save()
 		dayscore = DayScore.objects.get_or_create(user=user, date=datetime.date.today())[0]
-		dayscore.score = session.score
+		dayscore.score += 1
 		dayscore.save()
 
 def input_question(request):
