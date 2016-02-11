@@ -13,7 +13,7 @@ class DayScore(models.Model):
 	score = models.IntegerField(default=0)
 
 class SimpleQuestion(models.Model):
-	def __unicode__(self):
+	def __str__(self):
 		return self.question_text
 	question_text = models.TextField()
 	answer = models.CharField(max_length=100)
@@ -27,16 +27,17 @@ class MultiStageQuestion(models.Model):
 	object_id = models.PositiveIntegerField()
 	part_one = GenericForeignKey('content_type', 'object_id')
 	'''
+    #NEEDS A TITLE FIELD, some 'callsign', a quick unique human readable identifier
 
-	part_one = models.ManyToManyField(SimpleQuestion, default=None, related_name='part_one')
-	InterTextOne = models.TextField()
-	part_two = models.ManyToManyField(SimpleQuestion, default=None, related_name='part_two')
-	InterTextTwo = models.TextField()
-	part_three = models.ManyToManyField(SimpleQuestion, default=None, related_name='part_thre')
-	InterTextThree = models.TextField()	
-	part_four = models.ManyToManyField(SimpleQuestion, default=None, related_name='part_four')
-	InterTextFour = models.TextField()
-	part_five = models.ManyToManyField(SimpleQuestion, default=None, related_name='part_five')
+	part_one = models.ManyToManyField(SimpleQuestion, default=None, related_name='part_one', blank=True)
+	InterTextOne = models.TextField(default='', blank=True)
+	part_two = models.ManyToManyField(SimpleQuestion, default=None, related_name='part_two', blank=True)
+	InterTextTwo = models.TextField(default='', blank=True)
+	part_three = models.ManyToManyField(SimpleQuestion, default=None, related_name='part_three', blank=True)
+	InterTextThree = models.TextField(default='', blank=True)	
+	part_four = models.ManyToManyField(SimpleQuestion, default=None, related_name='part_four', blank=True)
+	InterTextFour = models.TextField(default='', blank=True)
+	part_five = models.ManyToManyField(SimpleQuestion, default=None, related_name='part_five', blank=True)
 
 
 
