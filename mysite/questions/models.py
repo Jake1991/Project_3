@@ -19,6 +19,9 @@ class SimpleQuestion(models.Model):
 	answer = models.CharField(max_length=100)
 	dummy_answer_a = models.CharField(max_length=100)
 	dummy_answer_b = models.CharField(max_length=100)
+	
+	def get_solutions(self):
+		return [self.answer, self.dummy_answer_a, self.dummy_answer_b]
 
 
 class MultiStageQuestion(models.Model):
@@ -27,17 +30,23 @@ class MultiStageQuestion(models.Model):
 	object_id = models.PositiveIntegerField()
 	part_one = GenericForeignKey('content_type', 'object_id')
 	'''
-    #NEEDS A TITLE FIELD, some 'callsign', a quick unique human readable identifier
+    #NEEDS A TITLE FIELD, some 'callsign', a quick unique human-readable identifier
 
-	part_one = models.ManyToManyField(SimpleQuestion, default=None, related_name='part_one', blank=True)
-	InterTextOne = models.TextField(default='', blank=True)
-	part_two = models.ManyToManyField(SimpleQuestion, default=None, related_name='part_two', blank=True)
-	InterTextTwo = models.TextField(default='', blank=True)
-	part_three = models.ManyToManyField(SimpleQuestion, default=None, related_name='part_three', blank=True)
-	InterTextThree = models.TextField(default='', blank=True)	
-	part_four = models.ManyToManyField(SimpleQuestion, default=None, related_name='part_four', blank=True)
-	InterTextFour = models.TextField(default='', blank=True)
-	part_five = models.ManyToManyField(SimpleQuestion, default=None, related_name='part_five', blank=True)
+	part_1 = models.ManyToManyField(SimpleQuestion, default=None, related_name='part_1', blank=True)
+	InterText1 = models.TextField(default='', blank=True)
+	part_2 = models.ManyToManyField(SimpleQuestion, default=None, related_name='part_2', blank=True)
+	InterText2 = models.TextField(default='', blank=True)
+	part_3 = models.ManyToManyField(SimpleQuestion, default=None, related_name='part_3', blank=True)
+	InterText3 = models.TextField(default='', blank=True)	
+	part_4 = models.ManyToManyField(SimpleQuestion, default=None, related_name='part_4', blank=True)
+	InterText4 = models.TextField(default='', blank=True)
+	part_5 = models.ManyToManyField(SimpleQuestion, default=None, related_name='part_5', blank=True)
+
+	def get_subquestions(self):
+		return [self.part_1, self.part_2, self.part_3, self.part_4, self.part_5]
+
+	def get_intertext(self):
+		return [self.InterText1, self.InterText2, self.InterText3, self.InterText4]
 
 
 

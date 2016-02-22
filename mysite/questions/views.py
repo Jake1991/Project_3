@@ -13,11 +13,25 @@ import datetime
 
 @login_required
 def question(request):
-	problem, solutions = generate_problem('multiple_choice')
+	problem_data = generate_problem('simple_question')
+	problem = problem_data.get('problem_1').get('data').get('problem')
+	solutions = problem_data.get('problem_1').get('data').get('solutions')
 	form = QuestionForm(problem, solutions[0], solutions[1], solutions[2])
 	context = {	'problem': problem,
 				'solutions': solutions,
-				'form': form}
+				'forms': [form]}
+	return render(request, 'questions.html', context=context)
+
+@login_required
+def multi_stage_question(request):
+	problem_data = generate_problem('multi_stage_question')
+	forms = []
+	for problem in problem_data.get('problems'):
+		problem_text = problem.get('data').get('problem')
+		solutions = problem.get('data').get('solutions')
+		forms.append(QuestionForm(problem_text, solutions[0], solutions[1], solutions[2]))
+	context = { 'problem': 'Placeholder Problem Title',
+				'forms': forms}
 	return render(request, 'questions.html', context=context)
 
 @login_required

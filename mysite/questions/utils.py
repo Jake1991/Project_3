@@ -1,29 +1,30 @@
 from random import choice, shuffle
 import copy
 
-from .models import SimpleQuestion
-
-multiple_choice = {
-                     "Differentiate x^2": ["2x", "x", "3x"],
-                     "Integrate x^2": ["x^3/3 + c", "2x", "pi"],
-                     "Differentiate x^3/3": ["x^2", "x", "3x"]
-                     }
+from .models import SimpleQuestion, MultiStageQuestion
 
 def generate_problem(problem_type=None):
-	'''if problem_type == "multiple_choice":
-		problem = choice(list(multiple_choice))
-		solutions = copy.deepcopy(multiple_choice[problem])
-		shuffle(solutions)
-		return problem, solutions'''
+	if problem_type == 'simple_question':
+		question_query = SimpleQuestion.objects.order_by('?').first()
+		question = question_query.question_text
+		solutions = question_query.get_solutions()
+		problem_data = {	'problem_1': {
+						 	'data': {	'problem': question, 
+						 				'solutions': solutions}}}
+	elif problem_type == 'multi_stage_question':
+		question_query = MultiStageQuestion.objects.order_by('?').first()
+		problem_data = {}
+		problem_data['problems'] = []
+		problem_data['intertext'] = []
+		intertext_list = []
+		for index, problem in enumerate(question_query.get_subquestions()):
+			problem_data['problems'].append({ 'problem_{0}'.format(str(index)): { 'data':
+				 { 	'problem' : problem.question_text, 
+							'solutions': problem.get_solutions }}
+			})
+		problem_data['intertext'].append(question_query.get_intertext())
+	return problem_data
 
-	question_query = SimpleQuestion.objects.order_by('?').first()
-	question = question_query.question_text
-	solutions = [
-		question_query.answer,
-		question_query.dummy_answer_a,
-		question_query.dummy_answer_b,
-		]
-	return question, solutions
 
 def check_solution(problem, subbed_solution, problem_type=None):
 
