@@ -26,12 +26,14 @@ def question(request):
 def multi_stage_question(request):
 	problem_data = generate_problem('multi_stage_question')
 	forms = []
-	for problem in problem_data.get('problems'):
-		problem_text = problem.get('data').get('problem')
-		solutions = problem.get('data').get('solutions')
-		forms.append(QuestionForm(problem_text, solutions[0], solutions[1], solutions[2]))
+	
+	for index, problem in enumerate(problem_data.get('problems')):
+		problem_text = problem.get('problem_{0}'.format(index)).get('data').get('problem')
+		solutions = problem.get('problem_{0}'.format(index)).get('data').get('solutions')
+		# import pdb; pdb.set_trace()
+		forms.append((problem_text, QuestionForm(problem_text, solutions[0], solutions[1], solutions[2])))
 	context = { 'problem': 'Placeholder Problem Title',
-				'forms': forms}
+				'forms': forms,}
 	return render(request, 'questions.html', context=context)
 
 @login_required

@@ -43,7 +43,11 @@ class MultiStageQuestion(models.Model):
 	part_5 = models.ManyToManyField(SimpleQuestion, default=None, related_name='part_5', blank=True)
 
 	def get_subquestions(self):
-		return [self.part_1, self.part_2, self.part_3, self.part_4, self.part_5]
+		subquestions = []
+		for part in [self.part_1, self.part_2, self.part_3, self.part_4, self.part_5]:
+			if part.get_queryset():
+				subquestions.append(part)
+		return subquestions
 
 	def get_intertext(self):
 		return [self.InterText1, self.InterText2, self.InterText3, self.InterText4]

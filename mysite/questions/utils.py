@@ -18,9 +18,10 @@ def generate_problem(problem_type=None):
 		problem_data['intertext'] = []
 		intertext_list = []
 		for index, problem in enumerate(question_query.get_subquestions()):
+			problem = problem.get_queryset()[0]
 			problem_data['problems'].append({ 'problem_{0}'.format(str(index)): { 'data':
 				 { 	'problem' : problem.question_text, 
-							'solutions': problem.get_solutions }}
+							'solutions': problem.get_solutions() }}
 			})
 		problem_data['intertext'].append(question_query.get_intertext())
 	return problem_data
