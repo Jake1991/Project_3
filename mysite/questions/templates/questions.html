@@ -8,7 +8,9 @@
 	<h1 class='col-xs-8'> {{problem}} </h1>
 </div>
 {% for form in formset.forms %}
-	{{ form }}
+	{% for field in form %}
+		{{field.label_tag}}
+	{% endfor %}
 {% endfor %}
 {% comment %}
 {% for form in forms %}

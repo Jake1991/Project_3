@@ -40,12 +40,11 @@ def multi_stage_question(request):
 				'forms': forms,}
 	######
 	QuestionFormSet = formset_factory(QuestionForm, extra=2)
-	formset = QuestionFormSet(initial=[
-    	{'problem': 'Jake',
-    	'answers': 'hello',}
-	])
+	formset = QuestionFormSet()
 	context = { 'problem': 'Placeholder Problem Title',
-				'formset': formset,}	
+	 		'formset': formset,}
+	for form in formset:
+		print(form.as_table())	
 	return render(request, 'questions.html', context=context)
 
 @login_required
