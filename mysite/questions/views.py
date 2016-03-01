@@ -19,11 +19,15 @@ def question(request):
 	form = QuestionForm(problem, solutions[0], solutions[1], solutions[2])
 	context = {	'problem': problem,
 				'solutions': solutions,
-				'forms': [form]}
+				'forms': [(problem, form)]}
 	return render(request, 'questions.html', context=context)
+import datetime
 
+from django import forms
+from django.forms import formset_factory
 @login_required
 def multi_stage_question(request):
+	#multi stage solutions not currently randomised
 	problem_data = generate_problem('multi_stage_question')
 	forms = []
 	
@@ -34,6 +38,14 @@ def multi_stage_question(request):
 		forms.append((problem_text, QuestionForm(problem_text, solutions[0], solutions[1], solutions[2])))
 	context = { 'problem': 'Placeholder Problem Title',
 				'forms': forms,}
+	######
+	QuestionFormSet = formset_factory(QuestionForm, extra=2)
+	formset = QuestionFormSet(initial=[
+    	{'problem': 'Jake',
+    	'answers': 'hello',}
+	])
+	context = { 'problem': 'Placeholder Problem Title',
+				'formset': formset,}	
 	return render(request, 'questions.html', context=context)
 
 @login_required
