@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 from questions.utils import generate_problem, check_solution
-from questions.forms import QuestionForm, InputQuestionForm
+from questions.forms import QuestionForm, MultiStageQuestionForm, InputQuestionForm
 from questions.models import UserSession, DayScore, SimpleQuestion
 
 
@@ -26,25 +26,26 @@ import datetime
 from django import forms
 from django.forms import formset_factory
 @login_required
-def multi_stage_question(request):
+def multi_stage_question(request, stage=None):
 	#multi stage solutions not currently randomised
+	#{'problems': [{'problem_0': {'data': {'solutions': ['2', '3', '4'], 'problem': '1+1 ='}}},
+	#			   {'problem_1': {'data': {'solutions': ['4', '5', '6'], 'problem': '2+2 = '}}},
+	#			   {'problem_2': {'data': {'solutions': ['6', '7', '8'], 'problem': '3 + 3 = '}}}],
+	#'intertext': [['Some text here', 'Some text there', '', '']]}
+	if stage:
+		stage = int(stage) + 1
+		#import pdb; pdb.set_trace()
+	else:
+		stage=0
 	problem_data = generate_problem('multi_stage_question')
-	forms = []
-	
-	for index, problem in enumerate(problem_data.get('problems')):
-		problem_text = problem.get('problem_{0}'.format(index)).get('data').get('problem')
-		solutions = problem.get('problem_{0}'.format(index)).get('data').get('solutions')
-		# import pdb; pdb.set_trace()
-		forms.append((problem_text, QuestionForm(problem_text, solutions[0], solutions[1], solutions[2])))
-	context = { 'problem': 'Placeholder Problem Title',
-				'forms': forms,}
-	######
-	QuestionFormSet = formset_factory(QuestionForm, extra=2)
-	formset = QuestionFormSet()
-	context = { 'problem': 'Placeholder Problem Title',
-	 		'formset': formset,}
-	for form in formset:
-		print(form.as_table())	
+	problem = problem_data.get('problems')[stage].get('problem_{}'.format(stage)).get('data').get('problem')
+	solutions = problem_data.get('problems')[stage].get('problem_{}'.format(stage)).get('data').get('solutions')
+	if stage == len(problem_data.get('problems'))-1:
+		stage = 'final'
+	form = MultiStageQuestionForm(problem, solutions[0], solutions[1], solutions[2], stage)
+	context = {	'problem': problem,
+				'solutions': solutions,
+				'forms': [(problem, form)]}
 	return render(request, 'questions.html', context=context)
 
 @login_required
@@ -53,6 +54,8 @@ def solution(request):
 	user = get_user(request)
 	update_score(user, correct)
 	context = {'correct' : correct, 'score': get_score(user)}
+	if request.POST.get('stage') and request.POST.get('stage') != 'final':
+		return multi_stage_question(request, request.POST.get('stage'))
 	return render(request, 'verify.html', context=context)
 
 def get_user(request):
