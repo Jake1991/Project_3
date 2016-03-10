@@ -8,6 +8,8 @@ class UserSession(models.Model):
 	last_updated = models.DateField(default=datetime.date(2015,1,1))
 
 class DayScore(models.Model):
+	def __str__(self):
+		return str(self.user) + ' ' + str(self.date)
 	user = models.ForeignKey(User)
 	date = models.DateField(default=datetime.date.today())
 	score = models.IntegerField(default=0)
@@ -25,11 +27,6 @@ class SimpleQuestion(models.Model):
 
 
 class MultiStageQuestion(models.Model):
-	'''
-	content_type = models.ForeignKey(ContentType)
-	object_id = models.PositiveIntegerField()
-	part_one = GenericForeignKey('content_type', 'object_id')
-	'''
     #NEEDS A TITLE FIELD, some 'callsign', a quick unique human-readable identifier
 
 	part_1 = models.ManyToManyField(SimpleQuestion, default=None, related_name='part_1', blank=True)

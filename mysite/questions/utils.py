@@ -24,7 +24,7 @@ def generate_problem(problem_type=None):
 							'solutions': problem.get_solutions() }}
 			})
 		problem_data['intertext'].append(question_query.get_intertext())
-		problem_data['id'] = question_query.id
+		problem_data['question_id'] = question_query.id
 	return problem_data
 
 

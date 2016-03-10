@@ -38,7 +38,7 @@ class MultiStageQuestionForm(forms.Form):
 	problem = forms.CharField(initial='', widget=forms.HiddenInput())
 	stage = forms.IntegerField(initial='', widget=forms.HiddenInput())
 
-	def __init__(self, question, sol_one, sol_two, sol_three, stage):
+	def __init__(self, question, sol_one, sol_two, sol_three, stage, question_id):
 		super(MultiStageQuestionForm, self).__init__()
 		CHOICES_2 = ((sol_one, sol_one),
         	       	(sol_two, sol_two),
@@ -49,6 +49,7 @@ class MultiStageQuestionForm(forms.Form):
 		self.fields['problem'].initial = question
 		self.fields['answers'].choices = CHOICES_2
 		self.fields['stage'].initial = stage
+		self.fields['question_id'].initial = question_id
 
 class InputQuestionForm(forms.Form):
 	question_text = forms.CharField(label='Question Text')

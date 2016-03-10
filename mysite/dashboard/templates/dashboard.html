@@ -1,1 +1,14 @@
 <h1>Hello</h1>
+<table>
+{% for date in dates %}
+<tr>
+	<td>
+		{{date.0}}
+	</td>
+	<td>
+		{{date.1}}
+	</td>
+</tr>
+{% endfor %}
+</table>
+<a href='{{ question_url }}'> On with the questions! </a>
