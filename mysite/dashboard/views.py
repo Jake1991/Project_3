@@ -8,15 +8,9 @@ from questions.models import DayScore
 
 def dashboard(request):
 	user = User.objects.get(username=request.user)
-	# need to figure out how to get multiple objects, for now using test data
-	#dayscores = DayScore.objects.get(user=user)
-	test = {
-		('2016, 03, 01', 2),
-		('2016, 03, 02', 10),
-		('2016, 03, 03', 0),
-		('2016, 03, 04', 5),
-	}
+	dayscores = DayScore.objects.filter(user=user)
+	dates = [(str(dayscore.date), dayscore.score) for dayscore in dayscores]
 	context = {}
-	context['dates'] = test
+	context['dates'] = dates
 	context['question_url'] = reverse('simple_question')
 	return render(request, 'dashboard.html', context=context)
