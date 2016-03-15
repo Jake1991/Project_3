@@ -1,3 +1,8 @@
+{% extends 'base.html' %}
+{% block header %}
+<div><a>Dashboard</a><a>Questions!</a></div>
+{% endblock %}
+{% block content %}
 <h1>Hello</h1>
 <table>
 {% for date in dates %}
@@ -12,3 +17,4 @@
 {% endfor %}
 </table>
 <a href='{{ question_url }}'> On with the questions! </a>
+{% endblock %}
