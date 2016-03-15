@@ -13,4 +13,4 @@ def dashboard(request):
 	context = {}
 	context['dates'] = dates
 	context['question_url'] = reverse('simple_question')
-	return render(request, 'dashboard.html', context=context)
+	return render(request, 'dashboard/dashboard.html', context=context)

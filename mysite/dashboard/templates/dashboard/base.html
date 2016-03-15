@@ -1,0 +1,29 @@
+<!- 
+TODO Sort out file structure and consoolidate base into one single file. Apply base to the questions pages
+->
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+	<script src="https://www.google.com/jsapi"></script>
+	<script>
+google.load('jquery', '1.3.1');
+</script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="{% static 'dashboard/questions.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'dashboard/bootstrap.css' %}">
+</head>
+
+<body>
+    <div id="headerd" class="row">
+        {% block header %}
+        	<div class="col-xs-12"> HEADER </div>
+        {% endblock %}
+    </div>
+
+    <div id="content" class="row">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

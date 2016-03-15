@@ -42,7 +42,13 @@ def multi_stage_question(request, stage=None):
 	solutions = problem_data.get('problems')[stage].get('problem_{}'.format(stage)).get('data').get('solutions')
 	if stage == len(problem_data.get('problems'))-1:
 		stage = 'final'
-	form = MultiStageQuestionForm(problem, solutions[0], solutions[1], solutions[2], stage)
+	form = MultiStageQuestionForm(
+		problem,
+		solutions[0],
+		solutions[1],
+		solutions[2],
+		stage,
+		problem_data['question_id'])
 	context = {	'problem': problem,
 				'solutions': solutions,
 				'forms': [(problem, form)]}

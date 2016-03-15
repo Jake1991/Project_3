@@ -37,6 +37,7 @@ class MultiStageQuestionForm(forms.Form):
 	answers = forms.MultipleChoiceField(choices=CHOICES, widget=forms.RadioSelect())
 	problem = forms.CharField(initial='', widget=forms.HiddenInput())
 	stage = forms.IntegerField(initial='', widget=forms.HiddenInput())
+	question_id = forms.IntegerField(initial='', widget=forms.HiddenInput())
 
 	def __init__(self, question, sol_one, sol_two, sol_three, stage, question_id):
 		super(MultiStageQuestionForm, self).__init__()
