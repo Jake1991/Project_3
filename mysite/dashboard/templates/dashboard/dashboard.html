@@ -1,20 +1,36 @@
 {% extends 'dashboard/base.html' %}
-{% block header %}
-<div><a>Dashboard</a><a>Questions!</a></div>
-{% endblock %}
-{% block content %}
-<h1>Hello</h1>
-<table>
-{% for date in dates %}
-<tr>
-	<td>
-		{{date.0}}
-	</td>
-	<td>
-		{{date.1}}
-	</td>
-</tr>
-{% endfor %}
-</table>
-<a href='{{ question_url }}'> On with the questions! </a>
-{% endblock %}
+<div class="container-fluid">
+	{% block header %}
+	<div><a>Dashboard</a><a>Questions!</a></div>
+	{% endblock %}
+	{% block content %}
+	<!- TODO can you have a roiw within a row cos if so i want the header to be one >
+	<div class="row">
+		<div class="col-xs-3"></div>
+		<div class="col-xs-6">
+			<h1>Welcome to your dashboard</h1>
+		</div>
+		<div class="col-xs-3"></div>
+	</div>
+	<div class="row">
+		<div class='col-xs-2'></div>
+		<div class='col-xs-4'>
+			<table>
+			{% for date in dates %}
+			<tr>
+				<td>
+					{{date.0}}
+				</td>
+				<td>
+					 {{date.1}}
+				</td>
+			</tr>
+		{% endfor %}
+		</table>
+		</div>
+		<div class='col-xs-6'>
+		<a href='{{ question_url }}'> On with the questions! </a>
+		</div>
+	</div>
+	{% endblock %}
+</div>
