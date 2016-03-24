@@ -21,6 +21,10 @@ class SimpleQuestion(models.Model):
 	answer = models.CharField(max_length=100)
 	dummy_answer_a = models.CharField(max_length=100)
 	dummy_answer_b = models.CharField(max_length=100)
+
+	exam_board = models.CharField(max_length=100, default='')
+	standalone = models.BooleanField(default=True)
+	module = models.CharField(max_length=100, default='')
 	
 	def get_solutions(self):
 		return [self.answer, self.dummy_answer_a, self.dummy_answer_b]
