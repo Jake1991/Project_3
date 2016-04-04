@@ -6,9 +6,6 @@ TODO Sort out file structure and consoolidate base into one single file. Apply b
 <html lang="en">
 <head>
 	<script src="https://www.google.com/jsapi"></script>
-	<script>
-google.load('jquery', '1.3.1');
-</script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="{% static 'dashboard/questions.css' %}">
@@ -18,11 +15,14 @@ google.load('jquery', '1.3.1');
 <body>
     <div id="header">
         {% block header %}
-        	<div> HEADER </div>
+        <div class='row'>
+            <!-- TODO add reverse urls to dashboard and questions -->
+        	<div class='col-xs-2'></div><div class='col-xs-8'><a> Dashboard </a><a> Questions </a></div><div class='col-xs-2'></div>
+        </div>
         {% endblock %}
     </div>
 
-    <div id="content" class="row">
+    <div id="content">
         {% block content %}{% endblock %}
     </div>
 </body>
