@@ -1,5 +1,5 @@
 <!- 
-TODO Sort out file structure and consoolidate base into one single file. Apply base to the questions pages
+TODO Sort out file structure and consolidate base into one single file. Apply base to the questions pages
 ->
 <!DOCTYPE html>
 {% load staticfiles %}
@@ -17,7 +17,10 @@ TODO Sort out file structure and consoolidate base into one single file. Apply b
         {% block header %}
         <div class='row'>
             <!-- TODO add reverse urls to dashboard and questions -->
-        	<div class='col-xs-2'></div><div class='col-xs-8'><a> Dashboard </a><a> Questions </a></div><div class='col-xs-2'></div>
+        	<div class='col-xs-2'></div>
+            <div class='col-xs-4'><a href='/dashboard'><h2>Dashboard</h2></a></div>
+            <div class='col-xs-4'><a href='/questions/simple_question'><h2>Questions</h2></a></div>
+            <div class='col-xs-2'></div>
         </div>
         {% endblock %}
     </div>

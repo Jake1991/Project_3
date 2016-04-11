@@ -1,13 +1,25 @@
+{% extends 'dashboard/base.html' %}
+
 {% load staticfiles %}
-<link rel="stylesheet" type="text/css" href="{% static 'questions/bootstrap.css' %}">
-<h1>
-{% if correct %}
-	Correct! Well done!
-{% else %}
-    Wrong!
-    {% endif %}
-</h1>
-<span> Current score: {{ score }} </span>
-{# should be replaced with a reverse on the view name #}
-<span><a href='/questions/simple_question'>Next simple question!</a></span>
-<span><a href='/questions/multi_stage_question'>Next multi-stage question!</a></span>
+
+{% block content %}
+<div class='container-fluid'>
+	<div class='row'>
+		<div class='col-xs-2'></div>
+		<div class='col-xs-8'>
+			<h1>
+			{% if correct %}
+				Correct! Well done!
+			{% else %}
+			    Wrong!
+			    {% endif %}
+			</h1>
+			<span> Current score: {{ score }} </span>
+			{# should be replaced with a reverse on the view name #}
+			<span><a href='/questions/simple_question'>Next simple question!</a></span>
+			<span><a href='/questions/multi_stage_question'>Next multi-stage question!</a></span>
+		</div>
+		<div class='col-xs-2'></div>
+	</div>
+</div>
+{% endblock %}
