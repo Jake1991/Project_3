@@ -22,7 +22,7 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'questions/', include('questions.urls')),
-    url(r'dashboard/', dashboard),
+    url(r'dashboard/', dashboard, name='dashboard'),
     url(r'^login/$', 'django.contrib.auth.views.login',name="login"),
     url(r'^accounts/login/$', 'django.contrib.auth.views.login',name="login"),
     url(r'^login/$', auth_views.login, name="login"),
