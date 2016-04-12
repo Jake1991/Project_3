@@ -9,13 +9,13 @@ def generate_problem(problem_type=None):
 		question = question_query.question_text
 		solutions = question_query.get_solutions()
 		if question_query.image:
-			image_path = question_query.image.url
+			image_name = question_query.image.name
 		else:
-			image_path = ''
+			image_name = ''
 		problem_data = {	'problem_1': {
 						 	'data': {	'problem': question, 
 						 				'solutions': solutions,
-						 				'image_path': image_path}}}
+						 				'image_name': image_name}}}
 	elif problem_type == 'multi_stage_question':
 		question_query = MultiStageQuestion.objects.order_by('?').first()
 		problem_data = {}
