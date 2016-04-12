@@ -8,9 +8,14 @@ def generate_problem(problem_type=None):
 		question_query = SimpleQuestion.objects.order_by('?').first()
 		question = question_query.question_text
 		solutions = question_query.get_solutions()
+		if question_query.image:
+			image_path = question_query.image.url
+		else:
+			image_path = ''
 		problem_data = {	'problem_1': {
 						 	'data': {	'problem': question, 
-						 				'solutions': solutions}}}
+						 				'solutions': solutions,
+						 				'image_path': image_path}}}
 	elif problem_type == 'multi_stage_question':
 		question_query = MultiStageQuestion.objects.order_by('?').first()
 		problem_data = {}

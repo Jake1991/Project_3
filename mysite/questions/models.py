@@ -25,6 +25,7 @@ class SimpleQuestion(models.Model):
 	exam_board = models.CharField(max_length=100, default='')
 	standalone = models.BooleanField(default=True)
 	module = models.CharField(max_length=100, default='')
+	image = models.ImageField(upload_to='static/question_images', blank=True)
 	
 	def get_solutions(self):
 		return [self.answer, self.dummy_answer_a, self.dummy_answer_b]

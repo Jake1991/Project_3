@@ -18,6 +18,7 @@ def question(request):
 	solutions = problem_data.get('problem_1').get('data').get('solutions')
 	form = QuestionForm(problem, solutions[0], solutions[1], solutions[2])
 	context = {	'problem': problem,
+				'image_path': problem_data.get('problem_1').get('data').get('image_path'),
 				'solutions': solutions,
 				'forms': [(problem, form)]}
 	return render(request, 'questions.html', context=context)
