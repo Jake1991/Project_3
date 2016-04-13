@@ -12,8 +12,11 @@ import datetime
 # Create your views here.
 
 @login_required
-def question(request):
-	problem_data = generate_problem('simple_question')
+def question(request, q_id=None):
+	if q_id:
+		problem_data = generate_problem(problem_type='simple_question', q_id=q_id)
+	else:
+		problem_data = generate_problem('simple_question')
 	problem = problem_data.get('problem_1').get('data').get('problem')
 	solutions = problem_data.get('problem_1').get('data').get('solutions')
 	form = QuestionForm(problem, solutions[0], solutions[1], solutions[2])

@@ -3,9 +3,12 @@ import copy
 
 from .models import SimpleQuestion, MultiStageQuestion
 
-def generate_problem(problem_type=None):
+def generate_problem(problem_type=None, q_id=None):
 	if problem_type == 'simple_question':
-		question_query = SimpleQuestion.objects.order_by('?').first()
+		if q_id:
+			question_query = SimpleQuestion.objects.get(pk=q_id)
+		else:
+			question_query = SimpleQuestion.objects.order_by('?').first()
 		question = question_query.question_text
 		solutions = question_query.get_solutions()
 		if question_query.image:
